@@ -6,39 +6,43 @@
   </welcome-file-list>
 
   <login-config>
-  	<auth-method>FORM</auth-method>
-  	<form-login-config>
-  		<form-login-page>/loginPage.jsp</form-login-page>
-  		<form-error-page>/login-error.jsp</form-error-page>
-  	</form-login-config> 
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/loginPage.jsp</form-login-page>
+      <form-error-page>/login-error.jsp</form-error-page>
+    </form-login-config>
   </login-config>
-     
-  <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>Sensitive</web-resource-name>
-  		<url-pattern>/testSecurity.jsp</url-pattern>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>registeredUser</role-name>
-  	</auth-constraint> <!--   
-  	<user-data-constraint>
-  		<transport-guarantee>
-  			CONFIDENTIAL
-  		</transport-guarantee>
-  	</user-data-constraint>
-  -->
-  </security-constraint>
-  
-  <security-role>
-  	<role-name>administrator</role-name>
-  </security-role>
-  <security-role>
-  	<role-name>registeredUser</role-name>
-  </security-role>
-  
 
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error/500.jsp</location>
-    </error-page>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Sensitive</web-resource-name>
+      <url-pattern>/testSecurity.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>registeredUser</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <security-role>
+    <role-name>administrator</role-name>
+  </security-role>
+  <security-role>
+    <role-name>registeredUser</role-name>
+  </security-role>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/500.jsp</location>
+  </error-page>
+
+  <!-- Aggiungi il filtro personalizzato per gli header di sicurezza -->
+  <filter>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <filter-class>control.SecurityHeadersFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SecurityHeadersFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
